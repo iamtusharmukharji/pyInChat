@@ -2,7 +2,7 @@
 from fastapi import FastAPI
 from fastapi import Depends
 from fastapi.responses import RedirectResponse
-from app.routers import users
+from app.routers import users, chats
 from app.database import get_db
 
 app = FastAPI(
@@ -12,6 +12,7 @@ app = FastAPI(
 )
 
 app.include_router(users.router)
+app.include_router(chats.router)
 
 @app.get("/")
 def read_root():

@@ -8,7 +8,7 @@ class CredLoader:
         
         self.db_creds = self.credentials.get('database', {})
         self.smtp_creds = self.credentials.get('smtp', {})
-
+        self.secret_key = self.credentials.get('secret_key')
     def load_credentials(self):
         with open(self.cred_file, 'r') as file:
             return json.load(file)
@@ -17,4 +17,3 @@ class CredLoader:
 
 fileName = './creds.json'
 cred_loader = CredLoader(fileName)
-print(cred_loader.db_creds)
