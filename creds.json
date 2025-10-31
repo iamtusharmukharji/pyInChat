@@ -8,6 +8,13 @@
     },
     "smtp": {
         "email": "iosynctech@gmail.com",
-        "app_password" : "pomyfylrzvzksxvl"
-    }
+        "app_password" : "bbxsyktxlhryglzr"
+    },
+    "redis": {
+        "host": "127.0.0.1",
+        "port" : 6379,
+        "db" : 0
+    },
+    
+    "secret_key":"cstbYeZcqmB5G3_K67iC8Y_Yr48cedWbXdmXSrODLMI"
 }

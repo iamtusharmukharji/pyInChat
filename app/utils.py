@@ -2,6 +2,47 @@
 
 import smtplib
 from app.cred_loader import cred_loader
+import jwt
+from datetime import datetime, timedelta
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi import Depends
+
+auth_header = HTTPBearer()
+
+
+
+def get_jwt_token(data: dict) -> str:
+    
+    SECRET_KEY = cred_loader.db_creds.get('secret_key', 'mysecret')
+    ALGORITHM = 'HS256'
+    ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24  # 1 day
+    expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    data.update({"exp": expire})
+    encoded_jwt = jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
+
+    return encoded_jwt
+
+def decode_jwt_token(token: HTTPAuthorizationCredentials = Depends(auth_header)):
+    SECRET_KEY = cred_loader.db_creds.get('secret_key', 'mysecret')
+    ALGORITHM = 'HS256'
+    try:
+        payload = jwt.decode(token.credentials, SECRET_KEY, algorithms=[ALGORITHM])
+        return payload
+    except jwt.ExpiredSignatureError:
+        raise Exception("Token has expired")
+    except jwt.InvalidTokenError:
+        raise Exception("Invalid token")
+    
+def decode_jwt_chat_token(token: str):
+    SECRET_KEY = cred_loader.db_creds.get('secret_key', 'mysecret')
+    ALGORITHM = 'HS256'
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return payload
+    except jwt.ExpiredSignatureError:
+        raise Exception("Token has expired")
+    except jwt.InvalidTokenError:
+        raise Exception("Invalid token")
 
 def get_hased_password(password: str) -> str:
     import hashlib
