@@ -2,13 +2,13 @@
     "database": {
         "host": "localhost",
         "port": 3306,
-        "username": "root",
-        "password": "mysql",
-        "schema_name": "pyinchatdb"
+        "username": "username",
+        "password": "password",
+        "schema_name": "db_name"
     },
     "smtp": {
-        "email": "iosynctech@gmail.com",
-        "app_password" : "bbxsyktxlhryglzr"
+        "email": "yourEmail@gmail.com",
+        "app_password" : "app_password_here"
     },
     "redis": {
         "host": "127.0.0.1",
@@ -16,5 +16,5 @@
         "db" : 0
     },
     
-    "secret_key":"cstbYeZcqmB5G3_K67iC8Y_Yr48cedWbXdmXSrODLMI"
+    "secret_key":"your_secret_key_here"
 }
